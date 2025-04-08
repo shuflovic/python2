@@ -41,9 +41,9 @@ function handleCommand(command) {
     // Placeholder for processing commands
     status.textContent = `Processing command: ${command}`;
 }
-const clientId = 'YOUR_CLIENT_ID';
+const clientId = '41d6acedbfa44710b2183b1b01e495f6';
 const clientSecret = 'YOUR_CLIENT_SECRET';
-const redirectUri = 'YOUR_REDIRECT_URI'; // E.g., http://localhost:3000/callback
+const redirectUri = 'http://localhost:3000/callback'; // E.g., http://localhost:3000/callback
 
 // Function to redirect user to Spotify's authorization page
 function authorize() {
