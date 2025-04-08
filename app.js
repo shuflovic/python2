@@ -77,3 +77,67 @@ async function handleCallback() {
 if (window.location.search.includes('code=')) {
     handleCallback();
 }
+
+async function playTrack(trackUri) {
+    const accessToken = localStorage.getItem('spotifyAccessToken');
+
+    if (!accessToken) {
+        status.textContent = 'Please authorize with Spotify first.';
+        return;
+    }
+
+    const response = await fetch('https://api.spotify.com/v1/me/player/play', {
+        method: 'PUT',
+        headers: {
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ uris: [trackUri] })
+    });
+
+    if (response.ok) {
+        status.textContent = 'Playing track!';
+    } else {
+        const errorData = await response.json();
+        status.textContent = `Error: ${errorData.error.message}`;
+    }
+}
+
+async function playPlaylist(playlistUri) {
+    const accessToken = localStorage.getItem('spotifyAccessToken');
+
+    if (!accessToken) {
+        status.textContent = 'Please authorize with Spotify first.';
+        return;
+    }
+
+    const response = await fetch('https://api.spotify.com/v1/me/player/play', {
+        method: 'PUT',
+        headers: {
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ context_uri: playlistUri })
+    });
+
+    if (response.ok) {
+        status.textContent = 'Playing playlist!';
+    } else {
+        const errorData = await response.json();
+        status.textContent = `Error: ${errorData.error.message}`;
+    }
+}
+
+function handleCommand(command) {
+    status.textContent = `Processing command: ${command}`;
+    // Example: "play track spotify:track:4iV5W9uYEdYUVa79Axb7Rh"
+    if (command.startsWith('play track ')) {
+        const trackUri = command.replace('play track ', '');
+        playTrack(trackUri);
+    } else if (command.startsWith('play playlist ')) {
+        const playlistUri = command.replace('play playlist ', '');
+        playPlaylist(playlistUri);
+    } else {
+        status.textContent = `Unknown command: ${command}`;
+    }
+}
