@@ -1,4 +1,4 @@
-        const clientId = '41d6acedbfa44710b2183b1b01e495f6'; // Replace with your actual Client ID
+        const clientId = 'id'; // Replace with your actual Client ID
         const clientSecret = 'secret'; // Replace with your actual Client Secret
         const redirectUri = 'file:///home/chronos/u-31a2f0582bdcd36fd29b650681cd562640bf2681/MyFiles/webka/games/spotify.html'; // Replace with your actual Redirect URI
 
