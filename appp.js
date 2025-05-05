@@ -1,10 +1,7 @@
 
-       
-
-const clientId = 'YOUR_CLIENT_ID'; // Replace with your actual Client ID
-const clientSecret = 'YOUR_CLIENT_SECRET'; // Replace with your actual Client Secret
-const redirectUri = window.location.origin + window.location.pathname; // Dynamically set redirect URI
-//const redirectUri = 'file:///home/chronos/u-31a2f0582bdcd36fd29b650681cd562640bf2681/MyFiles/webka/games/spotify.html'; // Replace with your actual Redirect URI
+const clientId = '41d6acedbfa44710b2183b1b01e495f6'; // Replace with your actual Client ID
+const clientSecret = 'secret is missing; // Replace with your actual Client Secret
+const redirectUri = 'file:///home/chronos/u-31a2f0582bdcd36fd29b650681cd562640bf2681/MyFiles/webka/games/spotify.html'; // Replace with your actual Redirect URI
 
 // DOM Elements
 const commandInput = document.getElementById('commandInput');
