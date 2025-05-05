@@ -80,7 +80,7 @@
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
   console.log(supabaseClient);
-});
+
     
 async function getSpotifyCredentials() {
   const { data, error } = await supabaseClient
@@ -750,7 +750,7 @@ async function handleCommand(command) {
     // If no command matched
     updateStatus(`I don't understand the command: "${command}"`, 'error');
 }
-  
+});
     </script>
     
     <script src="commands.js"></script>
