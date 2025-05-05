@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Voice Control</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Spotify Voice Control</h1>
+    </header>
+    
+    <main>
+        <section id="authSection">
+            <div class="card">
+                <h2>Connect to Spotify</h2>
+                <p>To control your Spotify account, please authorize this app.</p>
+                <button onclick="authorize()" class="btn primary">Authorize with Spotify</button>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>Spotify Voice Control App</p>
+    </footer>
+    
+    <!-- Supabase Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- App Scripts -->
+    <script src="supabase.js"></script>
+    <script src="app.js"></script>
+    <script src="commands.js"></script>
+
+        <section id="controlSection" style="display: none;">
+            <div class="card">
+                <h2>Now Playing</h2>
+                <div id="currentTrack">
+                    <p>No track currently playing</p>
+                </div>
+                
+                <div class="controls">
+                    <button onclick="handleCommand('previous')" class="btn control">Previous</button>
+                    <button onclick="handleCommand('pause')" class="btn control">Pause</button>
+                    <button onclick="handleCommand('play')" class="btn control">Play</button>
+                    <button onclick="handleCommand('next')" class="btn control">Next</button>
+                </div>
+            </div>
+            
+            <div class="command-section card">
+                <h2>Voice Control</h2>
+                <p>Try commands like "play discovery weekly" or "play songs by Queen"</p>
+                
+                <div class="input-group">
+                    <input type="text" id="commandInput" placeholder="Enter your command">
+                    <button onclick="processCommand()" class="btn">Submit</button>
+                </div>
+                
+                <button id="voiceButton" onclick="startVoiceRecognition()" class="btn primary voice-btn">
+                    <span class="icon">🎤</span> Start Voice Recognition
+                </button>
+                
+                <div id="status" class="status"></div>
+            </div>
+            
+            <div class="card">
+                <h2>My Favorites</h2>
+                <p>Say "save as favorite" to save the current track</p>
+                <div id="favoritesList">
+                    <p>Loading favorites...</p>
+                </div>
+                <button onclick="loadFavorites()" class="btn">Refresh Favorites</button>
+            </div>
+            
+            <div class="footer-controls">
+                <button onclick="logout()" class="btn secondary">Logout</button>
+            </div>
+        </section>
