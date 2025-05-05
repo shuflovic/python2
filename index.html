@@ -70,7 +70,7 @@
                 <button onclick="logout()" class="btn secondary">Logout</button>
             </div>
         </section>
-<script type="module">
+<script>
   import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
   const supabaseUrl = 'https://rigsljqkzlnemypqjlbk.supabase.co';
@@ -79,13 +79,6 @@
   const supabaseClient = createClient(supabaseUrl, supabaseKey);
 
   console.log(supabaseClient);
-
-</script>   
-    
-    <script>
-    import { createClient, supabaseUrl, supabaseKey } from './supabase.js';
-
-const supabaseClient = createClient(supabaseUrl, supabaseKey);
 
 async function getSpotifyCredentials() {
   const { data, error } = await supabaseClient
