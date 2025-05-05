@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 function authorize() {
-  const redirectUri = 'YOUR_REDIRECT_URI'; // Make sure you define this!
+  const redirectUri = 'https://shuflovic.github.io/spotify/'; // Make sure you define this!
   const scopes = [
     'user-read-private',
     'user-read-email',
