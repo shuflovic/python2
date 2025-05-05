@@ -26,21 +26,6 @@
         <p>Spotify Voice Control App</p>
     </footer>
     
-<script type="module">
-  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
-
-  const supabaseUrl = 'https://rigsljqkzlnemypqjlbk.supabase.co';
-  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJpZ3NsanFremxuZW15cHFqbGJrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDU2NjI5NTUsImV4cCI6MjA2MTIzODk1NX0.hNdNu9fHGQfdh4WdMFx_SQAVjXvQutBIud3D5CkM9uY';
-
-  const supabaseClient = createClient(supabaseUrl, supabaseKey);
-
-  // Testing Supabase connection
-  console.log(supabaseClient);
-</script>
-    
-
-
-
         <section id="controlSection" style="display: none;">
             <div class="card">
                 <h2>Now Playing</h2>
@@ -85,30 +70,18 @@
                 <button onclick="logout()" class="btn secondary">Logout</button>
             </div>
         </section>
-    <script>
-function authorize() {
-    // Define scopes needed for the app
-    const scopes = [
-        'user-read-private',
-        'user-read-email',
-        'user-modify-playback-state',
-        'user-read-playback-state',
-        'user-read-currently-playing',
-        'playlist-read-private',
-        'playlist-read-collaborative'
-    ].join(' ');
-    
-    // Create authorization URL
-    const authUrl = `https://accounts.spotify.com/authorize?response_type=code`+
-        `&client_id=${encodeURIComponent(clientId)}`+
-        `&scope=${encodeURIComponent(scopes)}`+
-        `&redirect_uri=${encodeURIComponent(redirectUri)}`;
-    
-    // Redirect to Spotify authorization page
-    window.location.href = authUrl;
-}
-</script>
+<script type="module">
+  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
+  const supabaseUrl = 'https://rigsljqkzlnemypqjlbk.supabase.co';
+  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJpZ3NsanFremxuZW15cHFqbGJrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDU2NjI5NTUsImV4cCI6MjA2MTIzODk1NX0.hNdNu9fHGQfdh4WdMFx_SQAVjXvQutBIud3D5CkM9uY';
+
+  const supabaseClient = createClient(supabaseUrl, supabaseKey);
+
+  console.log(supabaseClient);
+
+</script>   
+    
     <script type="module" src="app.js"></script>
     <script src="commands.js"></script>
 
