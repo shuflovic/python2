@@ -25,6 +25,7 @@ async function getSpotifyCredentials() {
 
   return credentials;
 };
+ });
 
 // Example usage
 getSpotifyCredentials().then((credentials) => {
