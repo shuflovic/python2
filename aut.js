@@ -1,62 +1,61 @@
- document.addEventListener('DOMContentLoaded', async () => {
-    // Initialize Supabase client
-    const SUPABASE_URL = 'https://rigsljqkzlnemypqjlbk.supabase.co';
-    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJpZ3NsanFremxuZW15cHFqbGJrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDU2NjI5NTUsImV4cCI6MjA2MTIzODk1NX0.hNdNu9fHGQfdh4WdMFx_SQAVjXvQutBIud3D5CkM9uY';
-    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+let clientId;
+let clientSecret;
 
-  console.log(supabaseClient);
+document.addEventListener('DOMContentLoaded', async () => {
+  // Initialize Supabase client
+  const SUPABASE_URL = 'https://rigsljqkzlnemypqjlbk.supabase.co';
+  const SUPABASE_KEY = 'YOUR_SUPABASE_KEY';
+  const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    
-async function getSpotifyCredentials() {
-  const { data, error } = await supabaseClient
-    .from('config') // Replace 'config' with your actual Supabase table name
-    .select('*')
-    .in('key', ['SPOTIFY_CLIENT_ID', 'SPOTIFY_CLIENT_SECRET']);
+  async function getSpotifyCredentials() {
+    const { data, error } = await supabaseClient
+      .from('config')
+      .select('*')
+      .in('key', ['SPOTIFY_CLIENT_ID', 'SPOTIFY_CLIENT_SECRET']);
 
-  if (error) {
-    console.error('Error fetching credentials:', error);
-    return null;
+    if (error) {
+      console.error('Error fetching credentials:', error);
+      return null;
+    }
+
+    const credentials = {};
+    data.forEach((row) => {
+      credentials[row.key] = row.value;
+    });
+
+    return credentials;
   }
 
-  const credentials = {};
-  data.forEach((row) => {
-    credentials[row.key] = row.value;
-  });
-
-  return credentials;
-};
-
-// Example usage
-getSpotifyCredentials().then((credentials) => {
-  const clientId = credentials.SPOTIFY_CLIENT_ID;
-  const clientSecret = credentials.SPOTIFY_CLIENT_SECRET;
+  // Example usage
+  const credentials = await getSpotifyCredentials();
+  clientId = credentials?.SPOTIFY_CLIENT_ID;
+  clientSecret = credentials?.SPOTIFY_CLIENT_SECRET;
 
   console.log(clientId);
   console.log(clientSecret);
-
-  // Use the clientId and clientSecret in your Spotify API calls
 });
-});
-
 
 function authorize() {
-    // Define scopes needed for the app
-    const scopes = [
-        'user-read-private',
-        'user-read-email',
-        'user-modify-playback-state',
-        'user-read-playback-state',
-        'user-read-currently-playing',
-        'playlist-read-private',
-        'playlist-read-collaborative'
-    ].join(' ');
-    
-    // Create authorization URL
-    const authUrl = `https://accounts.spotify.com/authorize?response_type=code`+
-        `&client_id=${encodeURIComponent(clientId)}`+
-        `&scope=${encodeURIComponent(scopes)}`+
-        `&redirect_uri=${encodeURIComponent(redirectUri)}`;
-    
-    // Redirect to Spotify authorization page
-    window.location.href = authUrl;
+  const redirectUri = 'YOUR_REDIRECT_URI'; // Make sure you define this!
+  const scopes = [
+    'user-read-private',
+    'user-read-email',
+    'user-modify-playback-state',
+    'user-read-playback-state',
+    'user-read-currently-playing',
+    'playlist-read-private',
+    'playlist-read-collaborative'
+  ].join(' ');
+
+  if (!clientId) {
+    console.error('clientId not loaded yet');
+    return;
+  }
+
+  const authUrl = `https://accounts.spotify.com/authorize?response_type=code` +
+    `&client_id=${encodeURIComponent(clientId)}` +
+    `&scope=${encodeURIComponent(scopes)}` +
+    `&redirect_uri=${encodeURIComponent(redirectUri)}`;
+
+  window.location.href = authUrl;
 }
