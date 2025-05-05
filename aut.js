@@ -5,7 +5,7 @@
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
   console.log(supabaseClient);
- });
+
     
 async function getSpotifyCredentials() {
   const { data, error } = await supabaseClient
@@ -26,9 +26,6 @@ async function getSpotifyCredentials() {
   return credentials;
 };
 
-
- 
-
 // Example usage
 getSpotifyCredentials().then((credentials) => {
   const clientId = credentials.SPOTIFY_CLIENT_ID;
@@ -39,6 +36,8 @@ getSpotifyCredentials().then((credentials) => {
 
   // Use the clientId and clientSecret in your Spotify API calls
 });
+});
+
 
 function authorize() {
     // Define scopes needed for the app
