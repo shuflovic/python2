@@ -31,8 +31,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   clientId = credentials?.SPOTIFY_CLIENT_ID;
   clientSecret = credentials?.SPOTIFY_CLIENT_SECRET;
 
-  console.log(clientId);
-  console.log(clientSecret);
+
 });
 
 function authorize() {
