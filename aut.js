@@ -5,7 +5,7 @@
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
   console.log(supabaseClient);
-
+ });
     
 async function getSpotifyCredentials() {
   const { data, error } = await supabaseClient
@@ -25,8 +25,8 @@ async function getSpotifyCredentials() {
 
   return credentials;
 };
-  });
-});
+
+
  
 
 // Example usage
