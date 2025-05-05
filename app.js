@@ -26,8 +26,7 @@ getSpotifyCredentials().then((credentials) => {
   const clientId = credentials.SPOTIFY_CLIENT_ID;
   const clientSecret = credentials.SPOTIFY_CLIENT_SECRET;
 
-  console.log('Spotify Client ID:', clientId);
-  console.log('Spotify Client Secret:', clientSecret);
+
 
   // Use the clientId and clientSecret in your Spotify API calls
 });
