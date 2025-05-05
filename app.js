@@ -1,7 +1,34 @@
+import { supabase } from './supabase.js';
 
-const clientId = process.env.SPOTIFY_CLIENT_ID;
-const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
-const redirectUri = 'file:///home/chronos/u-31a2f0582bdcd36fd29b650681cd562640bf2681/MyFiles/webka/games/spotify.html'; // Replace with your actual Redirect URI
+async function getSpotifyCredentials() {
+  const { data, error } = await supabase
+    .from('config') // Replace 'config' with your actual Supabase table name
+    .select('*')
+    .in('key', ['SPOTIFY_CLIENT_ID', 'SPOTIFY_CLIENT_SECRET']);
+
+  if (error) {
+    console.error('Error fetching credentials:', error);
+    return null;
+  }
+
+  const credentials = {};
+  data.forEach((row) => {
+    credentials[row.key] = row.value;
+  });
+
+  return credentials;
+}
+
+// Example usage
+getSpotifyCredentials().then((credentials) => {
+  const clientId = credentials.SPOTIFY_CLIENT_ID;
+  const clientSecret = credentials.SPOTIFY_CLIENT_SECRET;
+
+  console.log('Spotify Client ID:', clientId);
+  console.log('Spotify Client Secret:', clientSecret);
+
+  // Use the clientId and clientSecret in your Spotify API calls
+});
 
 // DOM Elements
 const commandInput = document.getElementById('commandInput');
