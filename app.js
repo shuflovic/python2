@@ -1,7 +1,9 @@
-import { supabase } from './supabase.js';
+import { createClient, supabaseUrl, supabaseKey } from './supabase.js';
+
+const supabaseClient = createClient(supabaseUrl, supabaseKey);
 
 async function getSpotifyCredentials() {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseClient
     .from('config') // Replace 'config' with your actual Supabase table name
     .select('*')
     .in('key', ['SPOTIFY_CLIENT_ID', 'SPOTIFY_CLIENT_SECRET']);
