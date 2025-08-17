@@ -3,76 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spotify Voice Control</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-  
+    <title>Measurement Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            max-width: 800px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Spotify Voice Control</h1>
-    </header>
-    
-    <main>
-        <section id="authSection">
-            <div class="card">
-                <h2>Connect to Spotify</h2>
-                <p>To control your Spotify account, please authorize this app.</p>
-                <button onclick="authorize()" class="btn primary">Authorize with Spotify</button>
-            </div>
-        </section>
-    </main>
-    
-    <footer>
-        <p>Spotify Voice Control App</p>
-    </footer>
-    
-        <section id="controlSection" style="display: none;">
-            <div class="card">
-                <h2>Now Playing</h2>
-                <div id="currentTrack">
-                    <p>No track currently playing</p>
-                </div>
+    <h1>Measurement Data</h1>
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th>Timestamp</th>
+                <th>Second</th>
+                <th>Temperature (°C)</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+    </table>
+
+    <script>
+        async function loadCSV() {
+            try {
+                const response = await fetch('measurements.csv');
+                if (!response.ok) {
+                    throw new Error('Failed to load CSV file');
+                }
+                const data = await response.text();
+                const rows = data.split('\n').filter(row => row.trim() !== '');
+                const tableBody = document.getElementById('tableBody');
                 
-                <div class="controls">
-                    <button onclick="handleCommand('previous')" class="btn control">Previous</button>
-                    <button onclick="handleCommand('pause')" class="btn control">Pause</button>
-                    <button onclick="handleCommand('play')" class="btn control">Play</button>
-                    <button onclick="handleCommand('next')" class="btn control">Next</button>
-                </div>
-            </div>
-            
-            <div class="command-section card">
-                <h2>Voice Control</h2>
-                <p>Try commands like "play discovery weekly" or "play songs by Queen"</p>
+                // Skip the header row if it exists
+                const startIndex = rows[0].includes('timestamp,second,temperature') ? 1 : 0;
                 
-                <div class="input-group">
-                    <input type="text" id="commandInput" placeholder="Enter your command">
-                    <button onclick="processCommand()" class="btn">Submit</button>
-                </div>
-                
-                <button id="voiceButton" onclick="startVoiceRecognition()" class="btn primary voice-btn">
-                    <span class="icon">🎤</span> Start Voice Recognition
-                </button>
-                
-                <div id="status" class="status"></div>
-            </div>
-            
-            <div class="card">
-                <h2>My Favorites</h2>
-                <p>Say "save as favorite" to save the current track</p>
-                <div id="favoritesList">
-                    <p>Loading favorites...</p>
-                </div>
-                <button onclick="loadFavorites()" class="btn">Refresh Favorites</button>
-            </div>
-            
-            <div class="footer-controls">
-                <button onclick="logout()" class="btn secondary">Logout</button>
-            </div>
-        </section>
-    
-    <script src="commands.js"></script>
-    <script src="aut.js"></script>
-</body>    
+                // Process each row
+                for (let i = startIndex; i < rows.length; i++) {
+                    const cols = rows[i].split(',');
+                    if (cols.length >= 3) {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${cols[0]}</td>
+                            <td>${cols[1]}</td>
+                            <td>${cols[2]}</td>
+                        `;
+                        tableBody.appendChild(row);
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading CSV:', error);
+                document.getElementById('tableBody').innerHTML = '<tr><td colspan="3">Error loading data</td></tr>';
+            }
+        }
+
+        // Load the CSV when the page loads
+        window.onload = loadCSV;
+    </script>
+</body>
 </html>
