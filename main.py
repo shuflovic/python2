@@ -124,9 +124,12 @@ def save_to_csv(response):
             ';'.join(response.tools_used)  # Join tools with semicolon
         ])
 
+from flask import render_template
+
 @app.route('/')
-def serve_html():
-    return send_file('index.html')
+def home():
+    return render_template('index.html')
+
 
 @app.route('/data.csv')
 def serve_csv():
