@@ -4,6 +4,6 @@ pydantic
 langchain
 langchain-anthropic
 langchain-google-genai
-wikipedia
-duckduckgo
 gunicorn
+duckduckgo-search
+wikipedia
