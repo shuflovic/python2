@@ -5,3 +5,4 @@ langchain
 langchain-anthropic
 langchain-google-genai
 wikipedia
+duckduckgo
